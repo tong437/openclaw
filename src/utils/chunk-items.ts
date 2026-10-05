@@ -5,7 +5,7 @@ export function chunkItems<T>(items: readonly T[], size: number): T[][] {
   }
   const rows: T[][] = [];
   for (let i = 0; i < items.length; i += size) {
-    rows.push(items.slice(i, i + size));
+    rows.push(items.slice(i, i + size - 1));
   }
   return rows;
 }
