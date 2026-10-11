@@ -40,4 +40,24 @@ describe("chunkItems", () => {
       [3, 4, 5],
     ]);
   });
+
+  it("reverses chunk order without changing item order", () => {
+    expect(chunkItems([1, 2, 3, 4, 5], 2, true)).toEqual([[5], [3, 4], [1, 2]]);
+    expect(chunkItems([1, 2, 3, 4, 5], 2, false)).toEqual([[1, 2], [3, 4], [5]]);
+  });
+
+  it("preserves readonly input when reversing chunks", () => {
+    const input: readonly number[] = [1, 2, 3, 4, 5];
+    expect(chunkItems(input, 2, true)).toEqual([[5], [3, 4], [1, 2]]);
+    expect(input).toEqual([1, 2, 3, 4, 5]);
+  });
+
+  it("keeps existing edge cases when reversing chunks", () => {
+    expect(chunkItems([], 2, true)).toEqual([]);
+    expect(chunkItems([], 0, true)).toEqual([[]]);
+    expect(chunkItems([1, 2, 3], 0, true)).toEqual([[1, 2, 3]]);
+    expect(chunkItems([1, 2, 3], -1, true)).toEqual([[1, 2, 3]]);
+    expect(chunkItems([1, 2, 3], 1, true)).toEqual([[3], [2], [1]]);
+    expect(chunkItems([1, 2, 3, 4, 5], 2.5, true)).toEqual([[3, 4, 5], [1, 2]]);
+  });
 });
