@@ -40,4 +40,12 @@ describe("chunkItems", () => {
       [3, 4, 5],
     ]);
   });
+
+  it("returns one chunk when size exceeds input length", () => {
+    expect(chunkItems([1, 2, 3], 10)).toEqual([[1, 2, 3]]);
+  });
+
+  it("splits evenly divisible input without an extra empty chunk", () => {
+    expect(chunkItems([1, 2, 3, 4], 2)).toEqual([[1, 2], [3, 4]]);
+  });
 });
